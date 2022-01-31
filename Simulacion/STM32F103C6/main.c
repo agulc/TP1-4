@@ -9,7 +9,7 @@
 #include <spi_config.h>
 #include <max7219.h>
 #include <stdlib.h>
-#include <string.h>
+#include <delay.h>
 
 struct cell 
 {
@@ -19,23 +19,9 @@ struct cell
 };
 
 
-
-void delay_ms(uint16_t time)
-{  //Funcion de retardo
-   volatile unsigned long l = 0;
-   uint16_t i;
-
-   for(i = 0; i < time; i++)
-   {
-      for(l = 0; l < 800; l++);
-   }
-}
-
 int main (void)
 { 
 // Write your code here
-
-   struct cell playboard[8][8];
 
    uint8_t led_matrix[8][8] = {
                            {0},
@@ -52,21 +38,7 @@ int main (void)
 
    spi_init();
    max7219_init();
-   for(i = 0; i < 8; i++)
-   {
-      for(j = 0; j < 8; j++)
-      {
-         playboard[0][0].previous_state = 0;
-         playboard[0][0].current_state = 0;
-         playboard[0][0].next_state = 0;
-         playboard[0][0].previous_state = 0;
-         playboard[0][0].current_state = 0;
-         playboard[0][0].next_state = 0;
-      }
-   }
-   playboard[1][2].previous_state = 0;
-   playboard[1][2].current_state = 1;
-   playboard[1][2].next_state = 0;
+
 
 
 

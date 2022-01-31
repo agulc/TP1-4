@@ -1,6 +1,7 @@
 #include <max7219.h>
 #include <spi_config.h>
 #include <stm32f103x6.h>
+#include <delay.h>
 
 
 uint16_t matrix_lines[8] = {0};
@@ -8,21 +9,10 @@ uint16_t matrix_lines[8] = {0};
 void max7219_send(uint8_t cmd, uint8_t data);
 void max7219_init(void);
 
-void delay_msm(uint16_t time)
-{  //Funcion de retardo
-	volatile unsigned long l = 0;
-	uint16_t i;
-	
-	for(i = 0; i < time; i++)
-	{
-		for(l = 0; l < 800; l++);
-	}
-}
-
 
 void max7219_send(uint8_t cmd, uint8_t data)
 {
-    delay_msm(1);
+    delay_ms(1);
     GPIOA->BRR = (1<<4); //Low signal enables chip selection
     spi_send(cmd);
     spi_send(data);
@@ -41,17 +31,12 @@ void max7219_init(void)
 
 void max7219_refresh(void)
 {
-
-    max7219_send(1, matrix_lines[0] );
-    max7219_send(2, matrix_lines[1] );
-    max7219_send(3, matrix_lines[2] );
-    max7219_send(4, matrix_lines[3] );
-    max7219_send(5, matrix_lines[4] );
-    max7219_send(6, matrix_lines[5] );
-    max7219_send(7, matrix_lines[6] );
-    max7219_send(8, matrix_lines[7] );
-    max7219_send(8, matrix_lines[7] );
-
+    volatile int i;
+    for(i = 0; i < 8; i++)
+    {
+        max7219_send(i+1, matrix_lines[i]);
+    }
+    max7219_send(8, matrix_lines[7]);
 }
 
 void max7219_load(uint8_t (*playboard)[8])
