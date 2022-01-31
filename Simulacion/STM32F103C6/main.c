@@ -11,22 +11,33 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct cell 
+{
+   uint8_t previous_state;
+   uint8_t current_state;
+   uint8_t next_state;
+};
+
+
+
 void delay_ms(uint16_t time)
 {  //Funcion de retardo
-volatile unsigned long l = 0;
-uint16_t i;
+   volatile unsigned long l = 0;
+   uint16_t i;
 
-for(i = 0; i < time; i++)
-{
-for(l = 0; l < 800; l++);
-}
+   for(i = 0; i < time; i++)
+   {
+      for(l = 0; l < 800; l++);
+   }
 }
 
 int main (void)
 { 
 // Write your code here
 
-   uint8_t playboard[8][8] = {
+   struct cell playboard[8][8];
+
+   uint8_t led_matrix[8][8] = {
                            {0},
                            {0},
                            {0},
@@ -37,50 +48,68 @@ int main (void)
                            {0},
    };
 
-   uint8_t matrix_lines[8] = {0};
-   
    int i,j;
 
-   for (i = 0; i < 8; i++)
-   {
-      playboard[i][0] =  0;
-      playboard[i][1] =  1;
-      playboard[i][2] =  0;
-      playboard[i][3] =  1;
-      playboard[i][4] =  0;
-      playboard[i][5] =  1;
-      playboard[i][6] =  0;
-      playboard[i][7] =  1;
-   }
-
    spi_init();
-   delay_ms(1);
    max7219_init();
-   delay_ms(1);
-
-   for (i = 1; i < 9; i++)
+   for(i = 0; i < 8; i++)
    {
-      delay_ms(1);
+      for(j = 0; j < 8; j++)
+      {
+         playboard[0][0].previous_state = 0;
+         playboard[0][0].current_state = 0;
+         playboard[0][0].next_state = 0;
+         playboard[0][0].previous_state = 0;
+         playboard[0][0].current_state = 0;
+         playboard[0][0].next_state = 0;
+      }
    }
+   playboard[0][0].previous_state = 0;
+   playboard[0][0].current_state = 1;
+   playboard[0][0].next_state = 0;
+
+
 
    while (1)
    {
-
-      for (j = 0; j < 8; j++)
+      for (i = 0; i < 8; i++)
       {
-         matrix_lines[j] = 0;
-         for (i = 0; i < 8; i++)
+         for (j = 0; j < 8; j++)
          {
-               {
-                  matrix_lines[j] |= (playboard[j][i] << (7 - i));
-               }
+            led_matrix[i][j] = playboard[i][j].current_state;
          }
       }
 
-      for(i = 0; i < 8; i++)
+      max7219_load(led_matrix);
+      max7219_refresh();
+
+      for (i = 0; i < 8; i++)
       {
-         delay_ms(1);
-         max7219_send(i + 1, matrix_lines[i] );
+         for (j = 0; j < 8; j++)
+         {
+            
+            playboard[i][j].previous_state = playboard[i][j].current_state;
+
+            if (playboard[i][j].previous_state == 1)
+            {
+               playboard[i][j].current_state = 0;
+            }
+            else
+            { 
+               if (i-1 >= 0)
+               {
+                  playboard[i][j].current_state = playboard[i-1][j].previous_state;
+               }
+               if (j-1 >= 0)
+               {
+                  playboard[i][j].current_state = playboard[i][j-1].previous_state;
+               }
+               if (i-1 >= 0 && j-1 >= 0)
+               {
+                  playboard[i][j].current_state = playboard[i-1][j-1].previous_state;
+               }
+            }
+         }
       }
       delay_ms(1000);
    }

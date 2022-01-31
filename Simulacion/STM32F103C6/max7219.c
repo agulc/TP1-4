@@ -32,6 +32,7 @@ void max7219_send(uint8_t cmd, uint8_t data)
 void max7219_init(void)
 {
     max7219_send(0x09, 0x00); //decode mode: No decode
+    max7219_send(0x09, 0x00); //decode mode: No decode
     max7219_send(0x0a, 0x08); //brightness PWM: dutty cycle = 17/32
     max7219_send(0x0b, 0x07); //scan limit: 8 leds
     max7219_send(0x0c, 0x01); //Shutdown mode: Normal operation
@@ -40,11 +41,17 @@ void max7219_init(void)
 
 void max7219_refresh(void)
 {
-    uint8_t i;
-    for (i = 1; i < 9; i++)
-    {
-	 max7219_send(i, matrix_lines[i - 1] );
-    }
+
+    max7219_send(1, matrix_lines[0] );
+    max7219_send(2, matrix_lines[1] );
+    max7219_send(3, matrix_lines[2] );
+    max7219_send(4, matrix_lines[3] );
+    max7219_send(5, matrix_lines[4] );
+    max7219_send(6, matrix_lines[5] );
+    max7219_send(7, matrix_lines[6] );
+    max7219_send(8, matrix_lines[7] );
+    max7219_send(8, matrix_lines[7] );
+
 }
 
 void max7219_load(uint8_t (*playboard)[8])
