@@ -64,9 +64,9 @@ int main (void)
          playboard[0][0].next_state = 0;
       }
    }
-   playboard[0][0].previous_state = 0;
-   playboard[0][0].current_state = 1;
-   playboard[0][0].next_state = 0;
+   playboard[1][2].previous_state = 0;
+   playboard[1][2].current_state = 1;
+   playboard[1][2].next_state = 0;
 
 
 
@@ -98,15 +98,24 @@ int main (void)
             { 
                if (i-1 >= 0)
                {
-                  playboard[i][j].current_state = playboard[i-1][j].previous_state;
+                  if (playboard[i-1][j].previous_state == 1)
+                  {
+                     playboard[i][j].current_state = 1;
+                  }
                }
                if (j-1 >= 0)
                {
-                  playboard[i][j].current_state = playboard[i][j-1].previous_state;
+                  if (playboard[i][j-1].previous_state == 1)
+                  {
+                     playboard[i][j].current_state = 1;
+                  }
                }
                if (i-1 >= 0 && j-1 >= 0)
                {
-                  playboard[i][j].current_state = playboard[i-1][j-1].previous_state;
+                  if (playboard[i-1][j-1].previous_state == 1)
+                  {
+                     playboard[i][j].current_state = 1;
+                  }
                }
             }
          }
