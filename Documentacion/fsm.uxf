@@ -1,22 +1,18 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>Relation</id><coordinates><x>118</x><y>230</y><w>110</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
-self</panel_attributes><additional_attributes>90;30;90;60;10;60;10;10;50;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>168</x><y>190</y><w>100</w><h>70</h></coordinates><panel_attributes>2
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>Relation</id><coordinates><x>146</x><y>230</y><w>110</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
+self</panel_attributes><additional_attributes>90;30;90;60;10;60;10;10;50;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>196</x><y>190</y><w>100</w><h>70</h></coordinates><panel_attributes>2
 Ready
-bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>40</x><y>100</y><w>150</w><h>110</h></coordinates><panel_attributes>lt=-&gt;</panel_attributes><additional_attributes>10;10;130;90</additional_attributes></element><element><id>UMLState</id><coordinates><x>0</x><y>30</y><w>100</w><h>80</h></coordinates><panel_attributes>1
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>68</x><y>260</y><w>170</w><h>180</h></coordinates><panel_attributes>lt=-&gt;</panel_attributes><additional_attributes>10;10;150;160</additional_attributes></element><element><id>UMLState</id><coordinates><x>28</x><y>190</y><w>100</w><h>80</h></coordinates><panel_attributes>1
 Start
-bg=#A020F0</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>170</x><y>0</y><w>100</w><h>70</h></coordinates><panel_attributes>3
+bg=#A020F0</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>198</x><y>0</y><w>100</w><h>70</h></coordinates><panel_attributes>3
 Reset
-bg=red</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>430</x><y>190</y><w>100</w><h>70</h></coordinates><panel_attributes>4
+bg=red</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>458</x><y>190</y><w>100</w><h>70</h></coordinates><panel_attributes>4
 Play
-bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>190</x><y>400</y><w>100</w><h>70</h></coordinates><panel_attributes>5
-Set
-bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>430</x><y>400</y><w>100</w><h>70</h></coordinates><panel_attributes>6
-Clear
-bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>60</y><w>70</w><h>150</h></coordinates><panel_attributes>lt=-&gt;
-Press A</panel_attributes><additional_attributes>30;130;10;90;10;50;30;10</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>60</y><w>30</w><h>150</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>190</y><w>190</w><h>40</h></coordinates><panel_attributes>lt=-&gt;
-Press START</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>230</y><w>190</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
-Press START</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>478</x><y>230</y><w>110</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
-self</panel_attributes><additional_attributes>10;30;10;60;90;60;90;10;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>250</y><w>90</w><h>170</h></coordinates><panel_attributes>lt=-&gt;
-Press SET</panel_attributes><additional_attributes>40;10;10;60;10;100;40;150</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>250</y><w>120</w><h>170</h></coordinates><panel_attributes>lt=&lt;-
-Press SET</panel_attributes><additional_attributes>10;10;40;60;40;100;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>440</y><w>170</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>410</y><w>170</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
-Pres START</panel_attributes><additional_attributes>150;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>138</x><y>440</y><w>110</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
-self</panel_attributes><additional_attributes>90;30;90;60;10;60;10;10;50;10</additional_attributes></element></diagram>
+bg=green</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>218</x><y>400</y><w>100</w><h>70</h></coordinates><panel_attributes>5
+Edit
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>208</x><y>60</y><w>70</w><h>150</h></coordinates><panel_attributes>lt=-&gt;
+Press A</panel_attributes><additional_attributes>30;130;10;90;10;50;30;10</additional_attributes></element><element><id>Relation</id><coordinates><x>258</x><y>60</y><w>30</w><h>150</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>288</x><y>190</y><w>190</w><h>40</h></coordinates><panel_attributes>lt=-&gt;
+Press START</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>288</x><y>230</y><w>190</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+Press START</panel_attributes><additional_attributes>10;20;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>506</x><y>230</y><w>110</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
+self</panel_attributes><additional_attributes>10;30;10;60;90;60;90;10;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>228</x><y>250</y><w>90</w><h>170</h></coordinates><panel_attributes>lt=-&gt;
+Press SET</panel_attributes><additional_attributes>40;10;10;60;10;100;40;150</additional_attributes></element><element><id>Relation</id><coordinates><x>268</x><y>250</y><w>60</w><h>170</h></coordinates><panel_attributes>lt=&lt;-
+</panel_attributes><additional_attributes>10;10;40;60;40;100;10;150</additional_attributes></element></diagram>

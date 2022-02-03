@@ -31,7 +31,7 @@ int main (void)
 
    spi_init();
    max7219_init();
-
+   
    fsm_state_selector(0, led_matrix);
    fsm_state_selector(0, led_matrix);
    max7219_load(led_matrix);
@@ -57,6 +57,10 @@ int main (void)
       fsm_state_selector(0, led_matrix);
       delay_ms(1000);
       fsm_state_selector(UP, led_matrix);
+      max7219_load(led_matrix);
+      max7219_refresh();
+      delay_ms(1000);
+      fsm_state_selector(SET, led_matrix);
       max7219_load(led_matrix);
       max7219_refresh();
       delay_ms(1000);
