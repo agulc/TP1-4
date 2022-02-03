@@ -9,6 +9,7 @@ typedef struct cells
 {
    uint8_t previous_state;
    uint8_t current_state;
+   uint8_t edit;
    uint8_t neighbors;
 } cell;
 
@@ -23,12 +24,17 @@ uint8_t fsm_1_begin(void);
 uint8_t fsm_2_ready(int button);
 uint8_t fsm_3_reset(void);
 uint8_t fsm_4_play(int button);
-uint8_t fsm_5_set(int button);
+uint8_t fsm_5_edit(int button);
 uint8_t fsm_6_clear(void);
 void fsm_clear_playboard(void);
 void fsm_copy_playboard(void);
 void fsm_to_led_matrix(uint8_t (*led_matrix)[BOARD_SIZE]);
-uint8_t fsm_check_neighbors(void);
+uint8_t fsm_check_neighbors(uint8_t x, uint8_t y);
+void fsm_save_copy(void);
+void fsm_first_draw(void);
+void fsm_load_copy(void);
+
+
 
 
 void fsm_state_selector(int button, uint8_t (*led_matrix)[BOARD_SIZE])
@@ -47,8 +53,8 @@ void fsm_state_selector(int button, uint8_t (*led_matrix)[BOARD_SIZE])
     case PLAY:
         state = fsm_4_play(button);
         break;
-    case SET:
-        state = fsm_5_set(button);
+    case EDIT:
+        state = fsm_5_edit(button);
         break;
     case CLEAR:
         state = fsm_6_clear();
@@ -68,8 +74,9 @@ uint8_t fsm_1_begin(void)
     uint8_t next_state = READY;
 
     fsm_clear_playboard();
-    fsm_save_copy();
     fsm_first_draw();
+    fsm_save_copy();
+    
 
     return next_state;
 }
@@ -106,7 +113,7 @@ uint8_t fsm_4_play(int button)
     uint8_t i, j, next_state = READY;
     if (button != START)
     {
-        uint8_t next_state = PLAY;
+        next_state = PLAY;
         for (i = 0; i < BOARD_SIZE; i++)
         {
             for (j = 0; j < BOARD_SIZE; j++)
@@ -142,9 +149,62 @@ uint8_t fsm_4_play(int button)
     return next_state;
 }
 
-uint8_t fsm_5_set(int button)
+uint8_t fsm_5_edit(int button)
 {
-    uint8_t next_state = 5;
+    static uint8_t x = 0, y = 0;
+    uint8_t i, j, next_state = EDIT;
+
+    for(i = 0; i < BOARD_SIZE; i++)
+    {
+        for(j = 0; j < BOARD_SIZE; j++)
+        {
+            playboard[i][j].edit = 0;
+            if (x == i && y == j)
+            {
+                playboard[i][j].edit = 1;
+            }    
+        }
+    }
+    
+    switch (button)
+    {
+    case SET:
+        fsm_save_copy();
+        next_state = READY;
+        break;
+
+    case UP:
+        if (y - 1 >= 0) y--;
+        break;
+
+    case DOWN:
+        if (y + 1 < BOARD_SIZE) y++;
+        break;
+        
+    case LEFT:
+        if (x - 1 >= 0) x--;
+        break;
+
+    case RIGHT:
+        if (x + 1 < BOARD_SIZE) x++;
+        break;
+
+    case START:
+        next_state = CLEAR;
+        break;
+
+    case A:
+        playboard[x][y].current_state = 1;
+        break;
+
+    case B:
+        playboard[x][y].current_state = 0;
+        break;
+    
+    default:
+        break;
+    }
+
     return next_state;
 }
 
@@ -179,6 +239,7 @@ void fsm_clear_playboard(void)
             playboard[i][j].previous_state = 0;
             playboard[i][j].current_state = 0;
             playboard[i][j].neighbors = 0;
+            playboard[i][j].edit = 0;
         }
     }
 }
@@ -193,6 +254,7 @@ void fsm_save_copy(void)
             playboard_copy[i][j].previous_state = playboard[i][j].previous_state;
             playboard_copy[i][j].current_state = playboard[i][j].current_state;
             playboard_copy[i][j].neighbors = playboard[i][j].neighbors;
+            playboard_copy[i][j].edit = 0;
         }
     }
 }
@@ -207,6 +269,7 @@ void fsm_load_copy(void)
             playboard[i][j].previous_state = playboard_copy[i][j].previous_state;
             playboard[i][j].current_state = playboard_copy[i][j].current_state;
             playboard[i][j].neighbors = playboard_copy[i][j].neighbors;
+            playboard[i][j].edit = 0;
         }
     }
 }

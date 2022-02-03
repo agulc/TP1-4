@@ -11,6 +11,6 @@
 #define READY 2
 #define RESET 3
 #define PLAY 4
-#define SET 5
+#define EDIT 5
 #define CLEAR 6
 #define BOARD_SIZE 8

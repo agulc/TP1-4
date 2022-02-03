@@ -10,14 +10,8 @@
 #include <max7219.h>
 #include <stdlib.h>
 #include <delay.h>
-
-struct cell 
-{
-   uint8_t previous_state;
-   uint8_t current_state;
-   uint8_t next_state;
-};
-
+#include <definitions.h>
+#include <fsm.h>
 
 int main (void)
 { 
@@ -33,66 +27,40 @@ int main (void)
                            {0},
                            {0},
    };
-
-   int i,j;
+   int i;
 
    spi_init();
    max7219_init();
 
-
+   fsm_state_selector(0, led_matrix);
+   fsm_state_selector(0, led_matrix);
+   max7219_load(led_matrix);
+   max7219_refresh();
 
 
    while (1)
    {
-      for (i = 0; i < 8; i++)
-      {
-         for (j = 0; j < 8; j++)
-         {
-            led_matrix[i][j] = playboard[i][j].current_state;
-         }
-      }
-
+      fsm_state_selector(START, led_matrix);
       max7219_load(led_matrix);
       max7219_refresh();
-
-      for (i = 0; i < 8; i++)
+      delay_ms(1000);
+      for (i = 0; i < 40; i++)
       {
-         for (j = 0; j < 8; j++)
-         {
-            
-            playboard[i][j].previous_state = playboard[i][j].current_state;
-
-            if (playboard[i][j].previous_state == 1)
-            {
-               playboard[i][j].current_state = 0;
-            }
-            else
-            { 
-               if (i-1 >= 0)
-               {
-                  if (playboard[i-1][j].previous_state == 1)
-                  {
-                     playboard[i][j].current_state = 1;
-                  }
-               }
-               if (j-1 >= 0)
-               {
-                  if (playboard[i][j-1].previous_state == 1)
-                  {
-                     playboard[i][j].current_state = 1;
-                  }
-               }
-               if (i-1 >= 0 && j-1 >= 0)
-               {
-                  if (playboard[i-1][j-1].previous_state == 1)
-                  {
-                     playboard[i][j].current_state = 1;
-                  }
-               }
-            }
-         }
+         fsm_state_selector(0, led_matrix);
+         max7219_load(led_matrix);
+         max7219_refresh();
+         delay_ms(100);
       }
+      fsm_state_selector(START, led_matrix);
+      max7219_load(led_matrix);
+      max7219_refresh();
+      fsm_state_selector(0, led_matrix);
+      delay_ms(1000);
+      fsm_state_selector(UP, led_matrix);
+      max7219_load(led_matrix);
+      max7219_refresh();
+      delay_ms(1000);
+      fsm_state_selector(0, led_matrix);
       delay_ms(1000);
    }
-
 }   
