@@ -12,6 +12,7 @@
 #include <delay.h>
 #include <definitions.h>
 #include <fsm.h>
+#include <buttons.h>
 
 int main (void)
 { 
@@ -31,6 +32,7 @@ int main (void)
 
    spi_init();
    max7219_init();
+   buttons_init();
    
    fsm_state_selector(0, led_matrix);
    fsm_state_selector(0, led_matrix);
@@ -40,31 +42,12 @@ int main (void)
 
    while (1)
    {
-      fsm_state_selector(START, led_matrix);
-      max7219_load(led_matrix);
-      max7219_refresh();
-      delay_ms(1000);
-      for (i = 0; i < 40; i++)
-      {
-         fsm_state_selector(0, led_matrix);
+         i = button_press();
+         fsm_state_selector(i, led_matrix);
          max7219_load(led_matrix);
          max7219_refresh();
          delay_ms(100);
-      }
-      fsm_state_selector(START, led_matrix);
-      max7219_load(led_matrix);
-      max7219_refresh();
-      fsm_state_selector(0, led_matrix);
-      delay_ms(1000);
-      fsm_state_selector(UP, led_matrix);
-      max7219_load(led_matrix);
-      max7219_refresh();
-      delay_ms(1000);
-      fsm_state_selector(SET, led_matrix);
-      max7219_load(led_matrix);
-      max7219_refresh();
-      delay_ms(1000);
-      fsm_state_selector(0, led_matrix);
-      delay_ms(1000);
+
+
    }
 }   

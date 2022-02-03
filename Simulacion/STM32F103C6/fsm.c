@@ -3,6 +3,7 @@
 #include <max7219.h>
 #include <stdlib.h>
 #include <definitions.h>
+#include <buttons.h>
 
 
 typedef struct cells
@@ -46,7 +47,7 @@ void fsm_state_selector(int button, uint8_t (*led_matrix)[BOARD_SIZE])
     case READY:
         state = fsm_2_ready(button);
         break;
-    case RESET:
+    case RESTART:
         state = fsm_3_reset();
         break;
     case PLAY:
@@ -61,6 +62,7 @@ void fsm_state_selector(int button, uint8_t (*led_matrix)[BOARD_SIZE])
         break;
     }
 
+    button_release();
     fsm_to_led_matrix(led_matrix);
 
 }
@@ -81,8 +83,8 @@ uint8_t fsm_2_ready(int button)
 
     switch (button)
     {
-    case UP:
-        next_state = RESET;
+    case RESET:
+        next_state = RESTART;
         break;
     case START:
         next_state = PLAY;
@@ -108,7 +110,7 @@ uint8_t fsm_3_reset(void)
 uint8_t fsm_4_play(int button)
 {
     uint8_t i, j, next_state = READY;
-    if (button != START)
+    if (button != STOP)
     {
         next_state = PLAY;
         for (i = 0; i < BOARD_SIZE; i++)
