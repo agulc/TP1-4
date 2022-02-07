@@ -13,41 +13,57 @@
 #include <definitions.h>
 #include <fsm.h>
 #include <buttons.h>
+#include <seos.h>
+
+void SysTick_Handler(void)
+{
+    seos_task_scheduler();
+}
 
 int main (void)
 { 
 // Write your code here
 
-   uint8_t led_matrix[8][8] = {
-                           {0},
-                           {0},
-                           {0},
-                           {0},
-                           {0},
-                           {0},
-                           {0},
-                           {0},
-   };
-   int i;
+      uint8_t led_matrix[BOARD_SIZE][BOARD_SIZE] = {
+                        {0},
+                        {0},
+                        {0},
+                        {0},
+                        {0},
+                        {0},
+                        {0},
+                        {0},
+      };
+      int button;
 
-   spi_init();
-   max7219_init();
-   buttons_init();
-   
-   fsm_state_selector(0, led_matrix);
-   fsm_state_selector(0, led_matrix);
-   max7219_load(led_matrix);
-   max7219_refresh();
+      spi_init();
+      max7219_init();
+      buttons_init();
+      fsm_state_selector(NOP, led_matrix);
+      fsm_state_selector(NOP, led_matrix);
+      max7219_load(led_matrix);
+      max7219_refresh();
 
-
-   while (1)
-   {
-         i = button_press();
-         fsm_state_selector(i, led_matrix);
-         max7219_load(led_matrix);
-         max7219_refresh();
-         delay_ms(100);
+      SysTick_Config(SYS_FREQUENCY / 1000);
 
 
-   }
+      while (1)
+      {
+            if(seos_get_flag(BUTTON_SCANNING))
+            {
+                  seos_clear_flag(BUTTON_SCANNING);
+                  button = button_press();
+            }
+            if(seos_get_flag(MATRIX_REFRESH))
+            {
+                  seos_clear_flag(MATRIX_REFRESH);
+                  max7219_load(led_matrix);
+                  max7219_refresh();
+            }
+            if (seos_get_flag(STATE_MACHINE))
+            {
+                  seos_clear_flag(STATE_MACHINE);
+                  fsm_state_selector(button, led_matrix);
+            }
+      }
 }   

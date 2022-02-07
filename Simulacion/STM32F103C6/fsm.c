@@ -58,7 +58,7 @@ void fsm_state_selector(int button, uint8_t (*led_matrix)[BOARD_SIZE])
         break;
 
     default:
-        state = 2;
+        state = BEGIN;
         break;
     }
 
