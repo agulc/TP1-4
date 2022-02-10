@@ -18,10 +18,10 @@ void buttons_init(void)
 
 uint8_t button_press(void)
 {
-    if(button_scan(3)) button = START;
-    else if(button_scan(4)) button = RESET;
+    if(button_scan(6)) button = START;
     else if(button_scan(5)) button = SET;
-    else if (button_scan(6)) button = STOP;
+    else if(button_scan(4)) button = RESET;
+    else if (button_scan(3)) button = STOP;
 
     return button;
 }
