@@ -157,7 +157,7 @@ uint8_t fsm_5_edit(void)
 
     x++;
 
-    if (x > 6)
+    if (x > 7)
     {
         x = 0;
     }
@@ -296,6 +296,8 @@ uint8_t fsm_check_neighbors(uint8_t i, uint8_t j)
 
 void fsm_draw(uint8_t x)
 {
+     uint8_t i;
+   
     fsm_clear_playboard();
 
     switch (x)
@@ -388,6 +390,19 @@ void fsm_draw(uint8_t x)
             playboard[4][4].current_state = 1;
             playboard[5][3].current_state = 1;
         break;
+
+    case 7:
+            for(i = 0; i < BOARD_SIZE; i++)
+            {
+                playboard[i][0].current_state = 0;
+                playboard[i][1].current_state = 0;
+                playboard[i][2].current_state = 1;
+                playboard[i][3].current_state = 0;
+                playboard[i][4].current_state = 0;
+                playboard[i][5].current_state = 1;
+                playboard[i][6].current_state = 0;
+                playboard[i][7].current_state = 0;
+            }
     
     default:
         break;

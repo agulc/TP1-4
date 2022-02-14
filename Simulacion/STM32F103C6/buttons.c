@@ -7,7 +7,7 @@ uint8_t button_scan(uint8_t);
 uint8_t button_press(void);
 void button_release(void);
 
-uint8_t button = 0;
+uint8_t button = NOP;
 
 void buttons_init(void)
 {
@@ -28,7 +28,7 @@ uint8_t button_press(void)
 
 void button_release(void)
 {
-    button = 0;
+    button = NOP;
 }
 
 uint8_t button_scan(uint8_t pin)
